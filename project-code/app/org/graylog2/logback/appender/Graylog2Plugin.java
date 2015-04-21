@@ -40,6 +40,8 @@ public class Graylog2Plugin extends Plugin {
     private final Integer sendBufferSize;
     private final Boolean accessLogEnabled;
     private String canonicalHostName;
+    
+    private final Boolean pluginEnabled;
 
     private ChannelFuture channelFuture;
     private GelfclientAppender gelfAppender;
@@ -53,7 +55,10 @@ public class Graylog2Plugin extends Plugin {
 
     public Graylog2Plugin(Application app) {
         final Configuration config = app.configuration();
-
+        this.pluginEnabled = config.getBoolean("graylog2.enable.plugin", false);
+        if(!this.pluginEnabled){
+        	return;
+        }
         accessLogEnabled = config.getBoolean("graylog2.appender.send-access-log", false);
         queueCapacity = config.getInt("graylog2.appender.queue-size", 512);
         reconnectInterval = config.getMilliseconds("graylog2.appender.reconnect-interval", 500L);
@@ -94,12 +99,18 @@ public class Graylog2Plugin extends Plugin {
 
     @Override
     public void onStart() {
+    	if(!this.pluginEnabled){
+        	return;
+        }
         gelfAppender.start();
         rootLogger.addAppender(gelfAppender);
     }
 
     @Override
     public void onStop() {
+    	if(!this.pluginEnabled){
+        	return;
+        }
         rootLogger.detachAppender(gelfAppender);
         transport.stop();
     }

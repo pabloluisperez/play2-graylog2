@@ -27,6 +27,8 @@ licenses := Seq("Apache 2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0
 
 homepage := Some(url("https://github.com/Graylog2/play2-graylog2"))
 
+scalaVersion := "2.11.1"
+
 pomExtra := (
   <scm>
     <url>https://github.com/Graylog2/play2-graylog2</url>

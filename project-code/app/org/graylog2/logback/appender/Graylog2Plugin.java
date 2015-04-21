@@ -35,10 +35,10 @@ import java.net.UnknownHostException;
 @SuppressWarnings("unused")
 public class Graylog2Plugin extends Plugin {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(Graylog2Plugin.class);
-    private final Long connectTimeout;
-    private final Boolean isTcpNoDelay;
-    private final Integer sendBufferSize;
-    private final Boolean accessLogEnabled;
+    private Long connectTimeout;
+    private Boolean isTcpNoDelay;
+    private Integer sendBufferSize;
+    private Boolean accessLogEnabled;
     private String canonicalHostName;
     
     private final Boolean pluginEnabled;
@@ -47,11 +47,11 @@ public class Graylog2Plugin extends Plugin {
     private GelfclientAppender gelfAppender;
 
     private InetSocketAddress graylog2ServerAddress;
-    private final Integer queueCapacity;
-    private final Long reconnectInterval;
+    private Integer queueCapacity;
+    private Long reconnectInterval;
 
-    private final GelfTransport transport;
-    private final Logger rootLogger;
+    private GelfTransport transport;
+    private Logger rootLogger;
 
     public Graylog2Plugin(Application app) {
         final Configuration config = app.configuration();
